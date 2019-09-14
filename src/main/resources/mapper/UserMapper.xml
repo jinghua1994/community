@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+     <mapper namespace="life.majiang.community.mapper.UserMapper">
+    <resultMap id="UserResultMap" type="life.majiang.community.model.User">
+        <id column="id" property="id" jdbcType="INTEGER"></id>
+        <result column="name" property="name" jdbcType="VARCHAR"></result>
+        <result column="account_id" property="accountId" jdbcType="VARCHAR"></result>
+        <result column="token" property="token" jdbcType="CHAR"></result>
+        <result column="gmt_create" property="gmtCreate" jdbcType="BIGINT"></result>
+        <result column="gmt_modified" property="gmtModified" jdbcType="BIGINT"></result>
+        <result column="avatar_url" property="avatar_url" jdbcType="VARCHAR"></result>
+     </resultMap>
+    <select id="findByToken"  parameterType="life.majiang.community.model.User" resultMap="UserResultMap">
+        select * from user where token=#{token}
+    </select>
+
+     <insert id="insert" parameterType="life.majiang.community.model.User" >
+         insert into user (name,account_id,token,gmt_create,gmt_modified,avatar_url) values (#{name},#{accountId},#{token},#{gmtCreate},#{gmtModified},#{avatar_url})
+     </insert>
+</mapper>

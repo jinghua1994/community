@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="life.majiang.community.mapper.QuestionMapper">
+    <resultMap id="QuestionListResultMap" type="life.majiang.community.dto.QuestionDto">
+        <id property="id" column="id"></id>
+        <result property="title" column="title"></result>
+        <result property="description" column="description"></result>
+        <result property="creator" column="creator"></result>
+        <result property="gmtCreate" column="gmt_create"></result>
+        <result property="gmtModified" column="get_modified"></result>
+        <result property="likeCount" column="like_count"></result>
+        <result property="commentCount" column="comment_count"></result>
+        <result property="tag" column="tag"></result>
+        <result property="viewCount" column="view_count"></result>
+        <collection property="user" ofType="life.majiang.community.model.User">
+        <id property="id" column="u_id"></id>
+            <result property="name" column="name"></result>
+            <result property="accountId" column="account_if"></result>
+            <result property="token" column="token"></result>
+            <result property="gmtCreate" column="gmtCreate"></result>
+            <result property="gmtModified" column="getModified"></result>
+            <result property="avatar_url" column="avatar_url"></result>
+        </collection>
+    </resultMap>
+
+
+    <insert id="create"  parameterType="life.majiang.community.model.Question" >
+        insert into question(title,description,gmt_create,gmt_modified,creator,comment_count,view_count,like_count,tag)
+        values (#{title},#{description},#{gmtCreate},#{gmtModified},#{creator},#{commentCount},#{viewCount},#{likeCount},#{tag})
+    </insert>
+
+
+    <select id="list"  resultType="life.majiang.community.model.Question" resultMap="QuestionListResultMap">
+      select q.*,u.id as u_id,u.gmt_create as gmtCreate ,u.gmt_modified as gmtModified ,u.account_id,u.avatar_url,u.`name`,u.token from question as q,`user` as u where q.creator=u.id
+
+    </select>
+ </mapper>
