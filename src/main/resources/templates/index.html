@@ -41,31 +41,118 @@
     </div>
     <div class="row">
 
-        <div class="col-md-6"></div>
+        <div class="col-md-6">
+            <div id="page_info_area"></div>
+        </div>
         <div class="col-md-6" id="page_nav_area">
-            <nav aria-label="Page navigation">
-                <ul class="pagination">
-                    <li>
-                        <a href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li>
-                        <a href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
+<!--            <nav aria-label="Page navigation">-->
+<!--                <ul class="pagination">-->
+<!--                    <li>-->
+<!--                        <a href="#" aria-label="Previous">-->
+<!--                            <span aria-hidden="true">&laquo;</span>-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li><a href="#">1</a></li>-->
+<!--                    <li><a href="#">2</a></li>-->
+<!--                    <li><a href="#">3</a></li>-->
+<!--                    <li><a href="#">4</a></li>-->
+<!--                    <li><a href="#">5</a></li>-->
+<!--                    <li>-->
+<!--                        <a href="#" aria-label="Next">-->
+<!--                            <span aria-hidden="true">&raquo;</span>-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </nav>-->
         </div>
 
     </div>
 </div>
+<script>
+    var totalRecord;
+    //1.在页面加载完成之后要到分页数据
+    $(function(){
+        //去首页
+        to_page(1);
+    });
+
+    function to_page(pn) {
+        $.ajax({
+            url:"/emps",
+            data:"pn="+pn,
+            type:"GET",
+            dataType:"json",
+            success : function(result) {
+
+
+                build_page_info(result);
+                build_page_nav(result);
+            }
+        });
+    }
+
+    function  build_page_info(result){
+        $("#page_info_area").empty();
+        $("#page_info_area").append("当前为第"+result.extend.pageinfo.pageNum+"页"+"总"+result.extend.pageinfo.pages+"页"+"总"+
+            result.extend.pageinfo.total+"页");
+        totalRecord=result.extend.pageinfo.total;
+    }
+    //显示分页条数据
+    function build_page_nav(result){
+        $("#page_nav_area").empty();
+        var ul=$("<ul></ul>").addClass("pagination");
+        var firstPageLi=$("<li></li>").append($("<a></a>").append("首页").attr("herf","#"));
+        var prePageLi=$("<li></li>").append($("<a></a>").append("&laquo;"));
+        //判断首页和上一页是否可以点击
+        if(result.extend.pageinfo.hasPreviousPage==false){
+            firstPageLi.addClass("disabled");
+            prePageLi.addClass("disabled");
+        }else{
+            //为导航栏标签添加点击事件
+            firstPageLi.click(function () {
+                to_page(1);
+            });
+            prePageLi.click(function () {
+                to_page(result.extend.pageinfo.pageNum-1);
+            });
+        }
+
+        var nextPageLi=$("<li></li>").append($("<a></a>").append("&raquo;"));
+        var lastPageLi=$("<li></li>").append($("<a></a>").append("末页").attr("herf","#"));
+        //判断末页和下一页是否可以点击
+        if(result.extend.pageinfo.hasNextPage==false){
+            lastPageLi.addClass("disabled");
+            nextPageLi.addClass("disabled");
+        }else{
+            //为末页和下一页添加点击事件
+            lastPageLi.click(function () {
+                to_page(result.extend.pageinfo.pages);
+            });
+            nextPageLi.click(function () {
+                to_page(result.extend.pageinfo.pageNum+1);
+            });
+        }
+
+        ul.append(firstPageLi).append(prePageLi);
+
+        $.each(result.extend.pageinfo.navigatepageNums,function (index,item) {
+            var numli=$("<li></li>").append($("<a></a>").append(item));
+            if(result.extend.pageinfo.pageNum==item){
+                numli.addClass("active");
+            }
+            numli.click(function () {
+                to_page(item);
+            });
+            ul.append(numli);
+        });
+        ul.append(nextPageLi).append(lastPageLi);
+        // 把ul加入到nav中
+        var navEle=$("<nav></nav>").append(ul);
+        navEle.appendTo("#page_nav_area");
+    }
+
+
+</script>
 
 </body>
 </html>
