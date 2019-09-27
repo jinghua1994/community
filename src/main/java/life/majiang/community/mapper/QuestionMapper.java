@@ -11,4 +11,6 @@ public interface QuestionMapper {
 
     void create(Question question);
 
+    List<Question> findQuestionByCreator(Integer temp_id);
+
 }

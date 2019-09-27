@@ -34,4 +34,11 @@
       select q.*,u.id as u_id,u.gmt_create as gmtCreate ,u.gmt_modified as gmtModified ,u.account_id,u.avatar_url,u.`name`,u.token from question as q,`user` as u where q.creator=u.id
 
     </select>
+
+
+    <select id="findQuestionByCreator"  resultType="life.majiang.community.model.Question" resultMap="QuestionListResultMap">
+      select q.*,u.id as u_id,u.gmt_create as gmtCreate ,u.gmt_modified as gmtModified ,u.account_id,u.avatar_url,u.`name`,u.token from question as q,`user` as u where q.creator=u.id
+
+    </select>
+
  </mapper>
