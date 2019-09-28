@@ -3,6 +3,7 @@ package life.majiang.community.Controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import life.majiang.community.Service.CookieService;
+import life.majiang.community.dto.QuestionDto;
 import life.majiang.community.mapper.QuestionMapper;
 import life.majiang.community.mapper.UserMapper;
 import life.majiang.community.dto.Msg;
@@ -35,8 +36,8 @@ public class IndexController {
         Cookie[] cookies = request.getCookies();
         cookieService.AddUser(cookies,request);
         PageHelper.startPage(pn,5);
-        List<Question> questionList= questionMapper.list();
-        PageInfo<Question>  page=new PageInfo<Question>(questionList,5);
+        List<QuestionDto> questionList= questionMapper.list();
+        PageInfo<QuestionDto>  page=new PageInfo<QuestionDto>(questionList,5);
         model.addAttribute("questions",questionList);
         model.addAttribute("pageInfo",page);
 
@@ -47,9 +48,9 @@ public class IndexController {
     public Msg getEmpWithJson(@RequestParam(value = "pn",defaultValue = "1")Integer pn){
         // pagehelper分页插件，在使用之前需要调用，传入起始的页码和每页的大小
         PageHelper.startPage(pn,5);
-        List<Question> questionList= questionMapper.list();
+        List<QuestionDto> questionList= questionMapper.list();
         //使用pageinfo来包装查询的结果，只需要将pageinfo的结果交给页面就可以了，封装了详细的页面信息，包括查询出来的数据
-        PageInfo<Question>  page=new PageInfo<Question>(questionList,5);
+        PageInfo<QuestionDto>  page=new PageInfo<QuestionDto>(questionList,5);
         // model.addAttribute("pageinfo",page);
         return Msg.success().add("pageinfo",page);
     }

@@ -1,7 +1,9 @@
 package life.majiang.community.Controller;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import life.majiang.community.Service.CookieService;
+import life.majiang.community.dto.QuestionDto;
 import life.majiang.community.mapper.QuestionMapper;
 import life.majiang.community.mapper.UserMapper;
 import life.majiang.community.model.User;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 public class ProfileController {
@@ -39,7 +42,10 @@ public class ProfileController {
         User user=(User) request.getSession().getAttribute("user");
 //       Integer temp_id= userMapper.findIdByToken(user.getToken());
         PageHelper.startPage(pn,5);
-        questionMapper.findQuestionByCreator(user.getId());
+        List<QuestionDto> questions= questionMapper.findQuestionByCreator(user.getId());
+        PageInfo<QuestionDto> pageInfo=new PageInfo<>(questions,5);
+        model.addAttribute("questions",questions);
+        model.addAttribute("pageInfo",pageInfo);
         return "profile";
 
     }
