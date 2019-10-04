@@ -14,4 +14,10 @@ public interface QuestionMapper {
 
     List<QuestionDto> findQuestionByCreator(Integer temp_id);
 
+    void updateQuestion(Question question);
+
+    QuestionDto findQuestionDtoById(Integer id);
+
+    Question findQuestionById(Integer id);
+
 }

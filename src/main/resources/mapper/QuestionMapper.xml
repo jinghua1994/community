@@ -41,4 +41,17 @@
 
     </select>
 
+
+    <update id="updateQuestion"  parameterType="life.majiang.community.model.Question">
+        update question set title=#{title},description=#{description},tag=#{tag},gmt_modified=#{gmtModified} where  id=#{id}
+    </update>
+
+
+    <select id="findQuestionDtoById"  resultMap="QuestionListResultMap">
+      select q.*,u.id as u_id,u.gmt_create as gmtCreate ,u.gmt_modified as gmtModified ,u.account_id,u.avatar_url,u.`name`,u.token from question as q,`user` as u where q.id=#{id}
+    </select>
+
+    <select id="findQuestionById" resultType="life.majiang.community.model.Question">
+        select q.* from question as q where  q.id=#{id}
+     </select>
  </mapper>
