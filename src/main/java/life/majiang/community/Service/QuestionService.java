@@ -19,4 +19,8 @@ public class QuestionService {
             questionMapper.updateQuestion(question);
         }
     }
+    //为问题添加评论
+    public void addview(Integer id) {
+        questionMapper.addView(id);
+    }
 }

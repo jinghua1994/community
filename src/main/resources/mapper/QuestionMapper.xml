@@ -54,4 +54,8 @@
     <select id="findQuestionById" resultType="life.majiang.community.model.Question">
         select q.* from question as q where  q.id=#{id}
      </select>
+
+    <update id="addView" parameterType="int">
+        update question set view_count=view_count+1 where id=#{id}
+    </update>
  </mapper>
