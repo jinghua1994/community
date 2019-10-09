@@ -1,8 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="life.majiang.community.mapper.CommentMapper">
+    <resultMap id="Comment" type="life.majiang.community.model.Comment">
+        <id column="id" property="id"></id>
+        <result column="parent_id" property="parentId"></result>
+        <result column="gmt_modified" property="gmtModified"></result>
+        <result column="gmt_create" property="gmtCreate"></result>
+        <result column="type" property="type"></result>
+        <result column="comment" property="comment"></result>
+        <result column="commentator" property="commentator"></result>
+        <result column="like_count" property="likeCount"></result>
+    </resultMap>
      <insert id="incView" parameterType="life.majiang.community.model.Comment">
          insert into comment (parent_id,type,commentator,gmt_create,gmt_modified,like_count,comment) values (#{parentId},#{type},#{commentator},
          #{gmtCreate},#{gmtModified},#{likeCount},#{comment})
      </insert>
+    <select id="findCommentById" parameterType="java.lang.Long" resultMap="Comment">
+        select * from comment where parent_id=#{parentId}
+    </select>
+
+
+    <select id="findCommentByParentAndType" parameterType="java.lang.Long" resultMap="Comment">
+        select * from comment where parent_id=#{id} and  type=1 order by gmt_create desc
+    </select>
 </mapper>

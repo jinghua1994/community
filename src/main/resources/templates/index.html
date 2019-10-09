@@ -7,6 +7,15 @@
     <script src="js/jquery-1.12.4.min.js"></script>
     <script src="js/bootstrap.js" type="text/javascript"></script>
     <link rel="stylesheet" href="css/community.css">
+    <script type="application/javascript">
+        window.onload=function () {
+            var closable=window.localStorage.getItem("closable");
+            if(closable=="true"){
+                window.close();
+                window.localStorage.removeItem("closable");
+            }
+        }
+    </script>
     <title>码匠笔记</title>
 </head>
 <body>

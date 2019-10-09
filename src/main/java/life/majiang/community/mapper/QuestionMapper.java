@@ -21,4 +21,6 @@ public interface QuestionMapper {
     Question findQuestionById(Integer id);
 
     void addView(Integer id);
+
+    void addComment(long id);
 }

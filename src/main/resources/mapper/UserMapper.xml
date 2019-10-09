@@ -27,4 +27,8 @@
         select id from user where token=#{token}
     </select>
 
+    <select id="findById"  parameterType="java.lang.Long" resultMap="UserResultMap">
+        select * from user where id=#{id}
+    </select>
+
 </mapper>

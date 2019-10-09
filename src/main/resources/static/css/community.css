@@ -18,11 +18,42 @@ body{
     width: 38px;
     height: 38px;
 }
+.media-body{
+    padding-top:10px;
+}
 .text-desc{
     font-size:12px;
     font-weight:normal;
     color: #999;
 }
+.comment{
+    margin-top:10px;
+    margin-bottom: 10px;
+}
 .profile .section{
     margin-top: 15px;
+}
+.btn-comment{
+    float:right;
+    margin-bottom: 10px;
+}
+.comment-sp{
+    margin-top:0;
+}
+.menu{
+    color: #999;
+    margin-top: 5px;
+}
+.menu.icno{
+    margin-right: 6px;
+    font-size: 15px;
+    cursor: pointer;
+}
+.comments{
+   padding-bottom: 5px;
+    margin-botttom:15px;
+    border-bottom:1px solid #eee;
+}
+.question-title{
+    margin-top: 25px;
 }

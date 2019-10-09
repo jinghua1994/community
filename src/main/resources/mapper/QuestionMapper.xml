@@ -15,7 +15,7 @@
         <collection property="user" ofType="life.majiang.community.model.User">
         <id property="id" column="u_id"></id>
             <result property="name" column="name"></result>
-            <result property="accountId" column="account_if"></result>
+            <result property="accountId" column="account_id"></result>
             <result property="token" column="token"></result>
             <result property="gmtCreate" column="gmtCreate"></result>
             <result property="gmtModified" column="getModified"></result>
@@ -57,5 +57,9 @@
 
     <update id="addView" parameterType="int">
         update question set view_count=view_count+1 where id=#{id}
+    </update>
+
+    <update id="addComment" parameterType="long">
+        update question set comment_count=comment_count+1 where id=#{id}
     </update>
  </mapper>

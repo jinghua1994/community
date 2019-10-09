@@ -15,4 +15,6 @@ public interface UserMapper {
     User findByAccountId(String accountId);
 
     Integer findIdByToken(String token);
+
+    User findById(Long id);
 }

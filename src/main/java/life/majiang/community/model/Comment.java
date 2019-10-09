@@ -6,10 +6,10 @@ import lombok.Data;
 public class Comment {
     private   long id;
     private  String  comment;
-    private  long parentId;
+    private  Long parentId;
     private  long   gmtModified;
     private  long gmtCreate;
-    private  int type;
-    private  int commentator;
+    private  Integer type;
+    private  Long commentator;
     private   long likeCount;
 }
